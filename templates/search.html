@@ -1,0 +1,126 @@
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/c9ry-hero.jpg')}}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Welcome to the Cafe & Wifi API</h1>
+          <span class="subheading">Search cafes by location.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div style="margin:0 auto;">
+      <form method="POST">
+        <input name="text">
+        <input type="submit" placeholder="Search..">
+      </form>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="container">
+    <div class="row">
+        <div style="margin:0 auto;">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<hr>
+{% endif %}
+{% endwith %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for cafe in cafes %}
+        <div class="post-preview", style="background-image: url({{cafe.img_url}})">
+
+            <h2 class="post-title">
+              {{cafe.name}}
+            </h2>
+            <h3 class="post-subtitle">
+              {{cafe.location}}
+            </h3>
+        </div>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Socket</th>
+                    <th scope="col">Toilet</th>
+                    <th scope="col">Wifi</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Seats</th>
+                    <th scope="col">Coffe price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% if cafe.has_sockets: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+                    {% if cafe.has_toilet: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+                    {% if cafe.has_wifi: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+                    {% if cafe.can_take_calls: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+
+                    <td>{{cafe.seats}}</td>
+                    <td>{{cafe.coffee_price}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="clearfix">
+          <a class="btn btn-primary float-right" href="{{url_for('update_cafe', cafe_id=cafe.id)}}">Edit Cafe</a>
+                <a href="{{url_for('delete_cafe', cafe_id=cafe.id) }}">✘</a>
+        </div>
+        <hr>
+        {% endfor %}
+
+
+            <hr>
+        </div>
+    </div>
+</div>
+<hr>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="{{ url_for('static', filename='js/clean-blog.min.js')}}"></script>
+
+</body>
+
+</html>

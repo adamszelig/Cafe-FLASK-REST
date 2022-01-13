@@ -1,0 +1,78 @@
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url({{cafe.img_url}})">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>{{cafe.name}}</h1>
+                    <span class="subheading">{{cafe.location}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Socket</th>
+                    <th scope="col">Toilet</th>
+                    <th scope="col">Wifi</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Seats</th>
+                    <th scope="col">Coffe price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% if cafe.has_sockets: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+                    {% if cafe.has_toilet: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+                    {% if cafe.has_wifi: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+                    {% if cafe.can_take_calls: %}
+                    <td>✓</td>
+                    {% else: %}
+                    <td>X</td>
+                    {% endif %}
+
+                    <td>{{cafe.seats}}</td>
+                    <td>{{cafe.coffee_price}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <hr>
+        </div>
+    </div>
+</div>
+<hr>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="{{ url_for('static', filename='js/clean-blog.min.js')}}"></script>
+
+</body>
+
+</html>
